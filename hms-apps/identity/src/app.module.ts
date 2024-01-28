@@ -2,9 +2,21 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [UsersModule],
+  imports: [TypeOrmModule.forRoot({
+    type: 'postgres',
+    host: 'localhost',
+    // url: 'mysql://root:root@localhost:3303/apoowo',
+    port: 5432,
+    username: 'postgres',
+    password: 'postgres',
+    database: 'newusers',
+    synchronize: true,
+    autoLoadEntities: true
+    // entities: ["dist/**/*.entity{.ts,.js}"],
+  }),UsersModule],
   controllers: [AppController],
   providers: [AppService],
 })
